@@ -1,5 +1,5 @@
 apiVersion: skaffold/v2beta28 
-kind: Config	
+kind: Config
 profiles:
   - name: profile-stag
     build:
