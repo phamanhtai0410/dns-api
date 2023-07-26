@@ -5,12 +5,12 @@ variables:
   APP_NAME_API_SAMPLE_QUEUE: dns-sample-queue
   APP_NAME_API_DOMAIN_QUEUE: dns-domain-queue
 
-  CONTAINER_REPO_ASIA_STAG: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/stag/dns-api
+  CONTAINER_REPO_ASIA_STAG: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/scroll-id/api-stag
 
-  CONTAINER_REPO_ASIA_PROD: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/prod/dns-api
-  NAMESPACE_STAG: dns-api-stag
+  CONTAINER_REPO_ASIA_PROD: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/scroll-id/api-prod
+  NAMESPACE_STAG: scroll-id-dns-api-stag
 
-  NAMESPACE_PROD: meme-prod
+  NAMESPACE_PROD: scroll-id-dns-api-prod
 
   HELM_VALUE_FOLDER: scroll-id
   FULLREPO_ASIA_STAG: $CONTAINER_REPO_ASIA_STAG:$CI_COMMIT_SHA
