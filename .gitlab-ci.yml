@@ -33,6 +33,7 @@ build:
     entrypoint: [""]
   script:
     #Run only when package.json changed
+    - ls
     - |
       if [[ "$UPDATE_LIB" == "YES" ]]; then
         /kaniko/executor \
