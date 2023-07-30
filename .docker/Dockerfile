@@ -2,5 +2,7 @@ FROM 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/esollabs/cicd:sh-python-b
 ARG base_img
 
 FROM $base_img
-WORKDIR /webapps
+
 COPY . .
+
+ENTRYPOINT python main.python

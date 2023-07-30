@@ -12,6 +12,18 @@ stages:
   - build
   # - deploy
 
+get_submodule:
+  image: alpine/git
+  stag: prepare
+  script:
+    - git clone https://gitlab.rinznetwork.com/devops-sharing/shared-libraries/dns-lib /dns-lib
+  only:
+    refs:
+      - stag
+  artifacts:
+    paths:
+      - /dns-lib
+
 build:
   stage: build
   image:
@@ -45,3 +57,5 @@ build:
       - stag
   environment:
     name: staging
+  dependencies:
+    - get_submodule
