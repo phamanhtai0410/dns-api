@@ -22,7 +22,7 @@ get_submodule:
       - stag
   artifacts:
     paths:
-      - /dns-lib
+      - /dns-lib/
   tags:
     - build
 
