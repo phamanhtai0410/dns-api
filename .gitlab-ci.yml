@@ -16,13 +16,13 @@ get_submodule:
   image: alpine/git
   stage: prepare
   script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.rinznetwork.com/devops-sharing/shared-libraries/dns-lib.git /dns-lib
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.rinznetwork.com/devops-sharing/shared-libraries/dns-lib.git
   only:
     refs:
       - stag
   artifacts:
     paths:
-      - /dns-lib/
+      - dns-lib/
   tags:
     - build
 
