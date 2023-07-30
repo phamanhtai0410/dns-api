@@ -4,8 +4,8 @@ variables:
 include:
   - project: 'devops-sharing/gitlab-ci-templates/general'
     file: 'python.gitlab-ci.yml'
-  - project: 'devops-sharing/gitlab-ci-templates/deploy'
-    file: 'scroll-id.dns-api.gitlab-ci.yml'
+  # - project: 'devops-sharing/gitlab-ci-templates/deploy'
+  #   file: 'scroll-id.dns-api.gitlab-ci.yml'
 
 stages:
   - prepare
