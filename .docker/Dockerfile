@@ -5,4 +5,4 @@ FROM $base_img
 
 COPY . .
 
-ENTRYPOINT python main.python
+ENTRYPOINT python main.py

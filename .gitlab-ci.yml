@@ -32,8 +32,7 @@ build:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
-    #Run only when package.json changed
-    - ls
+    #Run only when reqs changed
     - |
       if [[ "$UPDATE_LIB" == "YES" ]]; then
         /kaniko/executor \
