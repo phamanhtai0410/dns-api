@@ -23,6 +23,8 @@ get_submodule:
   artifacts:
     paths:
       - /dns-lib
+  tags:
+    - build
 
 build:
   stage: build
