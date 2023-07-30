@@ -16,7 +16,9 @@ get_submodule:
   image: alpine/git
   stage: prepare
   script:
-    - git clone https://gitlab.rinznetwork.com/devops-sharing/shared-libraries/dns-lib /dns-lib
+    - echo $BOT_PRIVATEKEY > /botkey
+    - GIT_SSH_COMMAND="ssh -i /botkey"
+    - git clone ssh://gitlab.rinznetwork.com:2222/devops-sharing/shared-libraries/dns-lib.git /dns-lib
   only:
     refs:
       - stag
