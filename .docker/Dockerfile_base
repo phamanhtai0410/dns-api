@@ -1,6 +1,6 @@
 FROM 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/esollabs/cicd:sh-python-ba4ec63-dirty
 
-COPY lib /webapps/lib
+COPY dns-lib /webapps/lib
 WORKDIR /webapps
 
 COPY requirements.txt .
