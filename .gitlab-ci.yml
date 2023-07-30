@@ -14,7 +14,7 @@ stages:
 
 get_submodule:
   image: alpine/git
-  stag: prepare
+  stage: prepare
   script:
     - git clone https://gitlab.rinznetwork.com/devops-sharing/shared-libraries/dns-lib /dns-lib
   only:
