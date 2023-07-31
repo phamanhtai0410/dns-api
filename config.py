@@ -44,7 +44,7 @@ class Config:
     # REDLOCK_REDIS = json.loads(os.getenv('REDLOCK_REDIS', '[]'))
 
     # Blockchain
-    ETH_RPC_URI = os.getenv('ETH_RPC_URI')
+    SCROLL_RPC_URI = os.getenv('SCROLL_RPC_URI')
     CHAIN_ID = int(os.getenv('CHAIN_ID'))
 
     WALLET_IAPI = os.getenv('WALLET_IAPI')
