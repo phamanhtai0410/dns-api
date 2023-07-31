@@ -26,3 +26,9 @@ TxLogsModel = DaoModel(col=connect_db.db.tx_logs, redis=redis_cluster, project=C
 DevMintOrdersModel = OrderDao(col=connect_db.db.dev_mint_orders, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
 SignatureLogModel = SignatureDao(col=connect_db.db.signature_log, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
 
+TotalPointModel = DaoModel(col=connect_db.db.total_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+
+HistoryPointModel = OrderDao(col=connect_db.db.history_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+
+
+

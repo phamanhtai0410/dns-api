@@ -35,7 +35,7 @@ EXTENDED_RESOLVER_INTERFACE_ID = HexStr("0x9061b923")  # ENSIP-10
 EMPTY_ADDR_HEX = HexAddress(HexStr("0x" + "00" * 20))
 EMPTY_SHA3_BYTES = HexBytes(b"\0" * 32)
 
-web3 = Web3(Web3.HTTPProvider(Config.SCROLL_RPC_URI, request_kwargs={'timeout': 60}))
+web3 = Web3(Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60}))
 
 reverse_resolver_abi = None
 with open("lib/abi/ReverseResolver.json") as reverse_resolver_file:
