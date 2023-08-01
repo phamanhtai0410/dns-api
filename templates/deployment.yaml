@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dns-api
+spec:
+  selector:
+    matchLabels:
+      app: dns-api
+  template:
+    metadata:
+      labels:
+        app: dns-api
+    spec:
+      containers:
+      - name: dns-api
+        image: {{ .Values.image }}
+        resources:
+          limits:
+            memory: {{ .Values.maxMem | default "128Mi" | quote }}
+            cpu: {{ .Values.maxCPU | default  "500m" | quote }}
+        ports:
+        - containerPort: {{ .Values.listenPort }}
