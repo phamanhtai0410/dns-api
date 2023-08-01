@@ -40,8 +40,8 @@ class Config:
     }
 
     # Redis
-    # REDIS_CLUSTER = json.loads(os.getenv('REDIS_CLUSTER'))
-    # REDLOCK_REDIS = json.loads(os.getenv('REDLOCK_REDIS', '[]'))
+    REDIS_CLUSTER = json.loads(os.getenv('REDIS_CLUSTER'))
+    REDLOCK_REDIS = json.loads(os.getenv('REDLOCK_REDIS', '[]'))
 
     # Blockchain
     ETH_RPC_URI = os.getenv('ETH_RPC_URI')

@@ -27,20 +27,23 @@ class InterfaceAsync:
 
 connect_db = PyMongo()
 
-redis_cluster = None
-# RedisCluster(
-#     startup_nodes=Config.REDIS_CLUSTER,
-#     decode_responses=True,
-#     skip_full_coverage_check=True
-# )
+# redis_cluster = None
 
-# dlm = Redlock(Config.REDLOCK_REDIS, retry_count=2)
+redis_cluster = RedisCluster(
+    startup_nodes=Config.REDIS_CLUSTER,
+    decode_responses=True,
+    skip_full_coverage_check=True
+)
+
+dlm = Redlock(Config.REDLOCK_REDIS, retry_count=2)
 
 web3_providers = {
     # ETHEREUM
     "1": Blockchain(Chains.ETHEREUM, Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60})),
     # GOERLI
     "5": Blockchain(Chains.ETHEREUM, Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60})),
+    # SCROLL
+    "534353": Blockchain(Chains.SCROLL, Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60})),
 }
 
 from lib import HTTPSecurity
