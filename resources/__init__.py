@@ -12,6 +12,7 @@ from resources.ns import ns_resources
 from resources.marketplace import marketplace_resources
 from resources.smc import smc_resources
 from resources.social import social_resources
+from resources.point import point_resourses
 
 api_resources = {
     '/hello': HelloWorld,
@@ -22,4 +23,6 @@ api_resources = {
     **{f'/marketplace{k}': val for k, val in marketplace_resources.items()},
     **{f'/smc{k}': val for k, val in smc_resources.items()},
     **{f'/social{k}': val for k, val in social_resources.items()},
+    **{f'/point{k}': val for k, val in point_resourses.items()},
+
 }
