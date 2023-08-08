@@ -4,13 +4,14 @@ from pydash import get
 import pydash as py_
 
 from services.point.point import POINTsService 
-from schemas.point.total_point import TotalPointSchema
+from schemas.point.total_point import TotalPointSchema,TotalPointResponseSchema
 
 class PointServiceResource(Resource):
 
     @security.http(
         params=TotalPointSchema(),
-        login_required=False
+        login_required=False,
+        response=TotalPointResponseSchema()
     )
     def get(self, params):
         _address = get(params, 'user_address')

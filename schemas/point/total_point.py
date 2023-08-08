@@ -6,6 +6,15 @@ class TotalPointSchema(Schema):
         unknown = EXCLUDE
         ordered = True
 
-    user_address = fields.Str(required=True)
+    user_address = fields.String(required=True)
+
+class TotalPointResponseSchema(Schema):
+    class Meta:
+        unknown = EXCLUDE
+        ordered = True
+
+    user_address = fields.Str()
+    referral = fields.Int()
+    total_point = fields.Int()
 
 
