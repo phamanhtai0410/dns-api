@@ -4,14 +4,14 @@ import pydash as py_
 import bson
 from bson import ObjectId
 from pymongo import MongoClient
-from models import TotalPointModel, HistoryPointModel,DefaultPointModel
+from models import TotalPointModel, HistoryPointModel,DefaultPointModel, MintLogsModel
 
 # from lib import dt_utcnow
 from datetime import datetime, timedelta
 from connect import redis_cluster
 from worker import worker
 
-from exceptions.point import UserNotFoundEx, WaitingTimeEx
+from exceptions.point import UserNotFoundEx,ReferralAddressError,WaitingTimeEx
 
 class POINTsService :
 
@@ -24,9 +24,14 @@ class POINTsService :
         _detail = TotalPointModel.find_one({
             'user_address': user_address
         })
+        _ = {
+            'total_point':0,
+            'referral':0,
+            'user_address': user_address
+        }
         print(_detail)
         if _detail is None:
-            raise UserNotFoundEx
+           return _ 
         return _detail
 
     
@@ -69,7 +74,7 @@ class POINTsService :
                 'total_point': rule['default'],
                 'referral':0,
                 'created_by': 'dns-api:services:POINTsService:update_point',
-                'updated_by': ''
+                'updated_by': 'dns-api:services:POINTsService:update_point'
             })
         HistoryPointModel.insert_one({
                 'user_address': user_address,
@@ -118,6 +123,9 @@ class POINTsService :
         _point4 = py_.get(form_data,'point4')
         _point4 = py_.get(form_data,'point4')
         _default =py_.get(form_data,'default')
+        _three = py_.get(form_data,'three')
+        _four = py_.get(form_data,'four')
+        _five = py_.get(form_data,'five')
         print(form_data)
         default=DefaultPointModel.update_one(
                 {
@@ -136,8 +144,57 @@ class POINTsService :
                     'point3':_point3,
                     'point4':_point4,
                     'default':_default,
+                    'three':_three,
+                    'four':_four,
+                    'five':_five
                 },
                 upsert=True   
             )
         return {}
+    
+    @classmethod
+    def get_default(self):
+        _default=DefaultPointModel.find_one({})
+        print(_default)
+        return _default
+    
+    @staticmethod
+    def mint_processing(self,form_data):
+        user_address = py_.get(form_data,'user_address')
+        referral = py_.get(form_data,'ref_address')
+        if referral == user_address:
+            raise ReferralAddressError
+        MintLogsModel.update_one(
+            {
+                **form_data,
+            },
+            {
+               'updated_by':'PointService',
+               'created_by':'user_on_dapp',
+            },
+            upsert=True
+        )
+        return
+    # @staticmethod
+    # def mint_done(self,user_address,domain_name):
+        
+    #     _mint = MintLogsModel.find_one({
+    #             'user_address':user_address,
+    #             'domain_name':domain_name
+    #     })
+    #     _rule = DefaultPointModel.find({})[0]
+    #     if _mint['letter'] == 3:
+    #         claim = _rule['three']
+    #     elif _mint['letter'] == 4:
+    #         claim = _rule['four']
+    #     else:
+    #         claim = _rule['five']    
+    #     HistoryPointModel.insert_one({
+    #             'user_address': user_address,
+    #             'point_type':'daily',
+    #             'point': claim,
+    #             'created_by': 'dns-api:services:POINTsService:claim_point',
+    #         })
+         
+            
         

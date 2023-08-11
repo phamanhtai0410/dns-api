@@ -15,3 +15,11 @@ class DefaultPointsResource(Resource):
     def put(self,form_data):
         POINTsService.set_default_point(form_data=form_data)
         return {}
+    
+    @security.http(
+        login_required=False,
+        response=DefaultPointsSchema(),
+    )
+    def get(self):    
+        return POINTsService.get_default()
+    

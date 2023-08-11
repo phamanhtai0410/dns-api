@@ -32,5 +32,7 @@ HistoryPointModel = DaoModel(col=connect_db.db.history_points, redis=redis_clust
 
 DefaultPointModel = DaoModel(col=connect_db.db.default_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
 
+MintLogsModel = DaoModel(col=connect_db.db.mint_logs, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+
 
 

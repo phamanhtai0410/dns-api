@@ -15,3 +15,6 @@ class DefaultPointsSchema(Schema):
     level4 = fields.Int(required=True)
     point4 = fields.Int(required=True)
     default = fields.Int(required=True)
+    three = fields.Int(required=True)
+    four = fields.Int(required=True)
+    five = fields.Int(required=True)

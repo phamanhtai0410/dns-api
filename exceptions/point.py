@@ -17,3 +17,13 @@ class WaitingTimeEx(Exception):
         self.error_code = 'WAITING_TIME'
 
     pass
+
+class ReferralAddressError(Exception):
+    def __init__(self, msg='Error referral address', *args: object, **kwargs) -> None:
+        super().__init__(*args)
+        self.status_code = 400
+        self.msg = msg
+        self.errors = kwargs.get('errors', [])
+        self.error_code = 'E_USER_NOT_FOUND'
+
+    pass
