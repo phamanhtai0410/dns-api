@@ -1,14 +1,12 @@
 version: "3"
 services:
   scroll-id-dns-api:
-    image: ktn-nft-api
+    image: scroll-id-dns-api
     build:
       context: .
-      dockerfile: Dockerfile-server
+      dockerfile: Dockerfile
 
     restart: always
-    volumes:
-      - ./:/webapps
     ports:
       - 6006:5005
     networks:
@@ -16,15 +14,12 @@ services:
     command: gunicorn --bind 0.0.0.0:5005 --workers=1 main:app --log-level=debug -c conf/gunicorn.py --timeout 0
 
   scroll-id-dns-domain-queue:
-    image: ktn-nft-api
-    build:
-      context: .
-      dockerfile: Dockerfile-server
+    image: scroll-id-dns-api
+    container_name: scroll-id-dns-queue
     restart: always
-    volumes:
-      - ./:/webapps
     networks:
       - base-network
+
     command: celery --app worker worker -Q dns-domain-queue -l INFO -c 4
 
 networks:
