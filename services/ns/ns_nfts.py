@@ -33,7 +33,9 @@ class NsNFTsService:
                 'owner': _owner.lower()
             },
             search=_search
-        )
+        ) 
+        if not _result:   
+            return {}      
 
         return _result
 
