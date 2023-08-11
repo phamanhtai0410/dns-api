@@ -43,7 +43,7 @@ web3_providers = {
     # GOERLI
     "5": Blockchain(Chains.ETHEREUM, Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60})),
     # SCROLL
-    "534353": Blockchain(Chains.SCROLL, Web3.HTTPProvider(Config.ETH_RPC_URI, request_kwargs={'timeout': 60})),
+    "534353": Blockchain(Chains.SCROLL, Web3.HTTPProvider(Config.SCROLL_RPC_URI, request_kwargs={'timeout': 60})),
 }
 
 from lib import HTTPSecurity
