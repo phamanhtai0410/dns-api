@@ -11,11 +11,13 @@ class NsNFTsRequestSchema(RequestSchema):
 
 
     owner = fields.String(required=True)
-    # sort_field = fields.String(allow_none=True, default='created_time')
-    # sort_type = fields.String(validate=validate.OneOf([
-    #     'desc',
-    #     'asc'
-    # ]), allow_none=True, default='desc')
+    sort_type = fields.String(required=False)
+
+    sort_field = fields.String(allow_none=True, default='created_time')
+    sort_type = fields.String(validate=validate.OneOf([
+        'desc',
+        'asc'
+    ]), allow_none=True, default='desc')
 
 
 

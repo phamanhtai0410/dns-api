@@ -5,6 +5,7 @@ from lib.enums.tx_type import TxType
 from lib.utils import dt_utcnow
 import traceback
 import bson
+import json
 
 from exceptions.nfts import NftIsNotOnMarketEx, NftIsOnMarketEx, NftNotFoundEx, UserNotOwnNftEx
 from exceptions.requests import IsNotValidObjIdEx
@@ -25,6 +26,8 @@ class NsNFTsService:
         _page_size = py_.get(params, 'page_size')
         _owner = py_.get(params, 'owner')
         _search = py_.get(params, 'search')
+        _sort_type = py_.get(params, 'sort_type')
+        _sort_field = py_.get(params, 'sort_field')
 
         _result = NsNFTsService.get_nfts(
             page=_page,
@@ -32,11 +35,19 @@ class NsNFTsService:
             filter={
                 'owner': _owner.lower()
             },
+            sort_type=_sort_type,
+            sort_field=_sort_field,
             search=_search
         ) 
+        # print("data____Type",type(_result))
         if not _result:   
             return {}      
-
+        # if _sort_type=='asc':
+        #     data = json.loads(_result)
+        #     print("data____Type",data.type)
+        #     data = sorted(_result, key=lambda x: x['domain_name'])
+        #     _result = json.dumps(data, indent=2)
+        # print( "___DATA____",_result)
         return _result
 
     @staticmethod
@@ -115,7 +126,7 @@ class NsNFTsService:
 
         _items = NsNFTsService.mapping_nft_detail(py_.get(_results, 'items'))
 
-        print(_items)
+        print("_____item______",_items)
 
         py_.set_(_results, 'items', _items)
 
