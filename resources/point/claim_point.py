@@ -14,6 +14,6 @@ class ClaimPointServiceResource(Resource):
     def post(self, form_data):
         _address = get(form_data, 'user_address')
 
-        _response = POINTsService.claim_point(user_address=_address)
+        _point = POINTsService.claim_point(user_address=_address)
 
-        return _response
+        return _point

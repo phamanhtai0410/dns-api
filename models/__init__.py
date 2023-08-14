@@ -28,7 +28,11 @@ SignatureLogModel = SignatureDao(col=connect_db.db.signature_log, redis=redis_cl
 
 TotalPointModel = DaoModel(col=connect_db.db.total_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
 
-HistoryPointModel = OrderDao(col=connect_db.db.history_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+HistoryPointModel = DaoModel(col=connect_db.db.history_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+
+DefaultPointModel = DaoModel(col=connect_db.db.default_points, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
+
+MintLogsModel = DaoModel(col=connect_db.db.mint_logs, redis=redis_cluster, project=Config.PROJECT, broker=Config.BROKER_URL)
 
 
 
