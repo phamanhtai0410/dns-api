@@ -198,7 +198,7 @@ class MNSServices:
                 return None, current_name
 
             resolver_addr = _ens.caller.resolver(cls.normal_name_to_hash(current_name))
-            print(f'resolver_address {resolver_addr}')
+
             if not cls.is_none_or_zero_address(resolver_addr):
                 # if resolver found, return it
                 resolver = cast(
@@ -263,10 +263,8 @@ class MNSServices:
     ):
         normal_name = cls.normalize_name(name)
 
-        print(f"normal name {normal_name}")
-
         resolver, current_name = cls._get_resolver(normal_name, fn_name)
-        # print(f'_resolver {_resolver}')
+
         if not resolver:
             return None
 

@@ -126,7 +126,7 @@ class NsNFTsService:
 
         _items = NsNFTsService.mapping_nft_detail(py_.get(_results, 'items'))
 
-        print("_____item______",_items)
+        # print("_____item______",_items)
 
         py_.set_(_results, 'items', _items)
 
