@@ -17,7 +17,7 @@ class NsNFTsRequestSchema(RequestSchema):
     sort_type = fields.String(validate=validate.OneOf([
         'desc',
         'asc'
-    ]), allow_none=True, default='desc')
+    ]), allow_none=True, default='asc')
 
 
 
