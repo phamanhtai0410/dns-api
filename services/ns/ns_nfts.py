@@ -6,6 +6,7 @@ from lib.utils import dt_utcnow
 import traceback
 import bson
 import json
+from web3 import Web3
 
 from exceptions.nfts import NftIsNotOnMarketEx, NftIsOnMarketEx, NftNotFoundEx, UserNotOwnNftEx
 from exceptions.requests import IsNotValidObjIdEx
@@ -68,8 +69,13 @@ class NsNFTsService:
                 'tx_type': TxType.NAME_REGISTERED
             })
             _tx_hash = py_.get(_tx_log, 'tx_hash', '')
+
+            ethereum_address = py_.get(item, 'owner')
+            calculated_checksum = Web3.to_checksum_address(ethereum_address)
+
             return {
                 **item,
+                'owner': calculated_checksum,
                 'tx_hash': _tx_hash,
                 'chain_id': py_.get(item, 'chain_id'),
                 # NOTE: if nft does not have previous price on sale will get default price
