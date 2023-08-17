@@ -54,7 +54,7 @@ def on_transfer_nft(event):
 
         _update = {
             'updated_time': dt_utcnow(),
-            'updated_by': 'dns-api:tasks:trade',
+            'updated_by': 'dns-api:tasks:transfer',
             'buy_deadline': 0,
             'owner': _owner
         }
