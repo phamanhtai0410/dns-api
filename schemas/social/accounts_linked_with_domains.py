@@ -13,7 +13,8 @@ class AccountsLinkedWithDomainsRequestSchema(Schema):
     social_name = fields.String(required=True, validate=validate.OneOf([
         SocialNames.TWITTER,
         SocialNames.DISCORD,
-        SocialNames.FACEBOOK
+        SocialNames.FACEBOOK,
+        SocialNames.GMAIL
     ]))
 
 
