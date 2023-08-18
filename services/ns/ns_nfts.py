@@ -431,9 +431,12 @@ class NsNFTsService:
         _results = NsNftModel.find({
             'owner': address
         })
+        
         _results = list(_results)
         _ns_nfts = []
         for _result in _results:
-            _ns_nfts.append(py_.get(_result, 'domain_name'))
+            _new_domain = py_.get(_result, 'domain_name')
+            if _new_domain not in _ns_nfts:
+                _ns_nfts.append(_new_domain)
 
         return _ns_nfts
