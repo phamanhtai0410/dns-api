@@ -88,6 +88,7 @@ class NsNFTsService:
         for _item in nft_items:
             # NOTE: get detail of nft
             _item = get_nft_detail(_item)
+            # if _item['domain_name'] not in _items:
             _items.append(_item)
 
         return _items
