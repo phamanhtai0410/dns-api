@@ -38,7 +38,7 @@ class POINTsService :
     @classmethod
     def update_point(
         cls, 
-        user_address,rule,link_point=0
+        user_address,rule
     ):
         obj = TotalPointModel.find_one({
             'user_address': user_address
@@ -58,12 +58,7 @@ class POINTsService :
             bonus = rule['default']*(1+bonus/100)
             claim = round(bonus)
             total_point = obj['total_point']
-            social_points = SocialsModel.find_one({
-                filter:{
-                    'address': user_address,
-                }
-            })
-            new_total_point=total_point + claim + link_point
+            new_total_point=total_point + claim
 
             TotalPointModel.update_one(
                 {'user_address': user_address},
@@ -81,48 +76,48 @@ class POINTsService :
                 'created_by': 'dns-api:services:POINTsService:update_point',
                 'updated_by': 'dns-api:services:POINTsService:update_point'
             })
-            HistoryPointModel.insert_one({
+
+        HistoryPointModel.insert_one({
+            'user_address': user_address,
+            'point_type':'daily',
+            'point': claim,
+            'created_by': 'dns-api:services:POINTsService:claim_point',
+        })   
+
+    @staticmethod
+    def link_point(
+        # cls, 
+        user_address,link_point
+    ):
+        obj = TotalPointModel.find_one({
+            'user_address': user_address
+        })
+        if(obj):
+            total_point = obj['total_point']
+            new_total_point=total_point + link_point
+            TotalPointModel.update_one(
+                {'user_address': user_address},
+                {
+                    'total_point': new_total_point,
+                    'updated_by': 'dns-api:services:POINTsService:link_point'
+                },
+            )
+        else:
+            # if not, add new data to TotalPoint Collection
+            TotalPointModel.insert_one({
                 'user_address': user_address,
-                'point_type':'daily',
-                'point': claim,
-                'created_by': 'dns-api:services:POINTsService:claim_point',
-            })   
+                'total_point': link_point,
+                'referral':0,
+                'created_by': 'dns-api:services:POINTsService:link_point',
+                'updated_by': 'dns-api:services:POINTsService:link_point'
+            })
 
-    # @classmethod
-    # def link_point(
-    #     cls, 
-    #     user_address,rule
-    # ):
-    #     obj = TotalPointModel.find_one({
-    #         'user_address': user_address
-    #     })
-    #     claim = 200
-    #     if(obj):
-    #         total_point = obj['total_point']
-    #         new_total_point=total_point + claim + link_point
-
-    #         TotalPointModel.update_one(
-    #             {'user_address': user_address},
-    #             {
-    #                 'total_point': new_total_point,
-    #                 'updated_by': 'dns-api:services:POINTsService:link_point'
-    #             },
-    #         )
-    #     else:
-    #         # if not, add new data to TotalPoint Collection
-    #         TotalPointModel.insert_one({
-    #             'user_address': user_address,
-    #             'total_point': rule['default'],
-    #             'referral':0,
-    #             'created_by': 'dns-api:services:POINTsService:link_point',
-    #             'updated_by': 'dns-api:services:POINTsService:link_point'
-    #         })
-    #         HistoryPointModel.insert_one({
-    #             'user_address': user_address,
-    #             'point_type':'daily',
-    #             'point': claim,
-    #             'created_by': 'dns-api:services:POINTsService:link_point',
-    #         })     
+        HistoryPointModel.insert_one({
+            'user_address': user_address,
+            'point_type':'link_point',
+            'point': link_point,
+            'created_by': 'dns-api:services:POINTsService:link_point',
+        })     
 
     @staticmethod
     def claim_point(user_address):

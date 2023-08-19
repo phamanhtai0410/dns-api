@@ -12,28 +12,24 @@ class SocialServices:
             raise InvalidWalletAddressEx
         _wallet = wallet_address.lower()
 
-        # _check_exist_bonus = SocialsModel.find(
-        #     filter={
-        #         'address': _wallet,
-        #         'bonus_points': 200
-        #     }
-        # )
-        # print("_check_exist_bonus",_check_exist_bonus)
-        # if _check_exist_bonus == []:
-        #     # print("____________run______________")
-        #     # _rule=DefaultPointModel.find({})[0]
-        #     # print("_rule",_rule)
-        #     # POINTsService.update_point(wallet_address, _rule,200)
-        #     SocialsModel.update_one(
-        #         filter={
-        #             'address': _wallet,
-        #             # 'bonus_points': 200
-        #         },
-        #         obj={
-        #             'bonus_points': 200,
-        #             'updated_by': 'scroll-api:services:social:update_bonus_social_linked_account'
-        #         },
-        #     )
+        _check_exist_link_point = SocialsModel.find(
+            filter={
+                'address': _wallet,
+                'bonus_points': 200
+            }
+        )
+        print("_check_exist_bonus",_check_exist_link_point)
+        if _check_exist_link_point == []:
+            POINTsService.link_point(user_address=_wallet,link_point=200)
+            SocialsModel.update_one(
+                filter={
+                    'address': _wallet,
+                },
+                obj={
+                    'bonus_points': 200,
+                    'updated_by': 'scroll-api:services:social:get_social_linked_of_one_wallet'
+                },
+            )
         _linked_list = SocialsModel.find(
             filter={
                 'address': _wallet
@@ -68,17 +64,14 @@ class SocialServices:
                 },
             )
         else:
-            # _rule=DefaultPointModel.find({})
-            # print("_rule",_rule['four'])
-            # calculated_checksum = Web3.to_checksum_address(_wallet_address)
-            # POINTsService.update_point(calculated_checksum, _rule, 200)
+            POINTsService.link_point(_wallet_address, 200)
             SocialsModel.insert_one(
                 {
                     'address': _wallet_address,
                     'social_name': _social_name,
                     'social_account': _social_account,
                     'full_name': _full_name,
-                    # 'bonus_points': 200,
+                    'bonus_points': 200,
                     'created_by': 'scroll-api:services:social:submit_social_linked_account'
                 }
             )
