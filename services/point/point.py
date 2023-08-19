@@ -20,7 +20,7 @@ class POINTsService :
         cls,
         user_address,
     ):
-
+        user_address = user_address.lower()
         _detail = TotalPointModel.find_one({
             'user_address': user_address
         })
@@ -40,6 +40,7 @@ class POINTsService :
         cls, 
         user_address,rule
     ):
+        user_address = user_address.lower()
         obj = TotalPointModel.find_one({
             'user_address': user_address
         })
@@ -86,9 +87,9 @@ class POINTsService :
 
     @staticmethod
     def link_point(
-        # cls, 
         user_address,link_point
     ):
+        user_address = user_address.lower()
         obj = TotalPointModel.find_one({
             'user_address': user_address
         })
@@ -121,6 +122,7 @@ class POINTsService :
 
     @staticmethod
     def claim_point(user_address):
+        user_address = user_address.lower()
         _rule = DefaultPointModel.find({})[0]
         print(_rule)
         pipeline = [
