@@ -27,6 +27,8 @@ class SocialSchema(Schema):
     social_name = fields.String(required=True)
     social_account = fields.String(required=True)
     address = fields.String(required=True)
+    full_name = fields.String(required=False)
+    # bonus_points = fields.Integer(required=False)
     created_time = DatetimeField(allow_none=True)
 
 

@@ -4,7 +4,7 @@ import pydash as py_
 import bson
 from bson import ObjectId
 from pymongo import MongoClient
-from models import TotalPointModel, HistoryPointModel,DefaultPointModel, MintLogsModel
+from models import TotalPointModel, HistoryPointModel,DefaultPointModel, MintLogsModel, SocialsModel
 
 # from lib import dt_utcnow
 from datetime import datetime, timedelta
@@ -38,7 +38,7 @@ class POINTsService :
     @classmethod
     def update_point(
         cls, 
-        user_address,rule
+        user_address,rule,link_point=0
     ):
         obj = TotalPointModel.find_one({
             'user_address': user_address
@@ -58,7 +58,12 @@ class POINTsService :
             bonus = rule['default']*(1+bonus/100)
             claim = round(bonus)
             total_point = obj['total_point']
-            new_total_point=total_point + claim
+            social_points = SocialsModel.find_one({
+                filter:{
+                    'address': user_address,
+                }
+            })
+            new_total_point=total_point + claim + link_point
 
             TotalPointModel.update_one(
                 {'user_address': user_address},
@@ -76,12 +81,48 @@ class POINTsService :
                 'created_by': 'dns-api:services:POINTsService:update_point',
                 'updated_by': 'dns-api:services:POINTsService:update_point'
             })
-        HistoryPointModel.insert_one({
+            HistoryPointModel.insert_one({
                 'user_address': user_address,
                 'point_type':'daily',
                 'point': claim,
                 'created_by': 'dns-api:services:POINTsService:claim_point',
-            })    
+            })   
+
+    # @classmethod
+    # def link_point(
+    #     cls, 
+    #     user_address,rule
+    # ):
+    #     obj = TotalPointModel.find_one({
+    #         'user_address': user_address
+    #     })
+    #     claim = 200
+    #     if(obj):
+    #         total_point = obj['total_point']
+    #         new_total_point=total_point + claim + link_point
+
+    #         TotalPointModel.update_one(
+    #             {'user_address': user_address},
+    #             {
+    #                 'total_point': new_total_point,
+    #                 'updated_by': 'dns-api:services:POINTsService:link_point'
+    #             },
+    #         )
+    #     else:
+    #         # if not, add new data to TotalPoint Collection
+    #         TotalPointModel.insert_one({
+    #             'user_address': user_address,
+    #             'total_point': rule['default'],
+    #             'referral':0,
+    #             'created_by': 'dns-api:services:POINTsService:link_point',
+    #             'updated_by': 'dns-api:services:POINTsService:link_point'
+    #         })
+    #         HistoryPointModel.insert_one({
+    #             'user_address': user_address,
+    #             'point_type':'daily',
+    #             'point': claim,
+    #             'created_by': 'dns-api:services:POINTsService:link_point',
+    #         })     
 
     @staticmethod
     def claim_point(user_address):

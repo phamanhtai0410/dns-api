@@ -14,6 +14,7 @@ class OneAccountLinkedSocialFormData(Schema):
         SocialNames.FACEBOOK,
         SocialNames.GMAIL
     ]))
+    full_name = fields.String(required=False)
     social_account = fields.String(required=True)
     # address = fields.String(required=True)
 

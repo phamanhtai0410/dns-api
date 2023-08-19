@@ -30,9 +30,11 @@ class LinkedWithOneAddressResource(Resource):
     def post(self, form_data, wallet_address):
         _wallet_address = wallet_address
         _social_name = get(form_data, 'social_name')
+        _full_name = get(form_data, 'full_name')
         _social_account = get(form_data, 'social_account')
         return SocialServices.submit_social_linked_account(
             _wallet_address,
             _social_name,
+            _full_name,
             _social_account
         )
