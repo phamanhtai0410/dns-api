@@ -4,7 +4,6 @@ from lib import ObjectIdField, DatetimeField
 from lib.enums.social import SocialNames
 
 
-class AccountsLinkedWithDomainsRequestSchema(Schema):
     class Meta:
         unknown = RAISE
 
