@@ -12,24 +12,24 @@ class SocialServices:
             raise InvalidWalletAddressEx
         _wallet = wallet_address.lower()
 
-        _check_exist_link_point = SocialsModel.find(
-            filter={
-                'address': _wallet,
-                'bonus_points': 200
-            }
-        )
-        print("_check_exist_bonus",_check_exist_link_point)
-        if _check_exist_link_point == []:
-            POINTsService.link_point(user_address=_wallet,link_point=200)
-            SocialsModel.update_one(
-                filter={
-                    'address': _wallet,
-                },
-                obj={
-                    'bonus_points': 200,
-                    'updated_by': 'scroll-api:services:social:get_social_linked_of_one_wallet'
-                },
-            )
+        # _check_exist_link_point = SocialsModel.find(
+        #     filter={
+        #         'address': _wallet,
+        #         'bonus_points': 200
+        #     }
+        # )
+        # print("_check_exist_bonus",_check_exist_link_point)
+        # if _check_exist_link_point == []:
+        #     POINTsService.link_point(user_address=_wallet,link_point=200)
+        #     SocialsModel.update_one(
+        #         filter={
+        #             'address': _wallet,
+        #         },
+        #         obj={
+        #             'bonus_points': 200,
+        #             'updated_by': 'scroll-api:services:social:get_social_linked_of_one_wallet'
+        #         },
+        #     )
         _linked_list = SocialsModel.find(
             filter={
                 'address': _wallet
